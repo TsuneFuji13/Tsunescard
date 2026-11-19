@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>藤原経将 Tsunemasa Fujiwara</title>
+<meta name="description" content="デザインの感性を、ビジネスの力に。 Design sense, as a business strength. Parsons School of Design, Class of 2028.">
+<meta name="theme-color" content="#141414">
+<meta property="og:title" content="藤原経将 Tsunemasa Fujiwara">
+<meta property="og:image" content="assets/hero-final.png">
+<meta property="og:description" content="デザインの感性を、ビジネスの力に。 Design sense, as a business strength.">
+<link rel="icon" href="assets/golden.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&family=IBM+Plex+Mono&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --bk:#141414; --ink:#EDEBE6; --mute:#9A978F; --line:rgba(237,235,230,.35); --ease:cubic-bezier(.22,.8,.2,1); }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { background:var(--bk); color:var(--ink); }
+  body { font-family:'Noto Sans JP', system-ui, sans-serif; -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent; }
+  main { max-width:440px; margin:0 auto; padding:24px 28px 40px; display:flex; flex-direction:column; gap:28px; }
+  .mono { font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:11px; letter-spacing:.04em; }
+  .serif { font-family:'EB Garamond', Georgia, serif; }
+  .top { display:flex; justify-content:space-between; align-items:center; color:var(--mute); }
+  .lang { background:none; border:0; color:var(--ink); cursor:pointer; padding:6px 0; }
+  .lang b { font-weight:400; text-decoration:underline; text-underline-offset:3px; }
+
+  /* ---------- identity: photo card with name overlay ---------- */
+  .photo { position:relative; aspect-ratio:334/380; border-radius:14px; overflow:hidden; background:#2a2a2a;
+           opacity:0; transform:scale(.97); }
+  .play .photo { animation:pop 1s var(--ease) .1s forwards; }
+  .photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+  .photo::after { content:""; position:absolute; left:0; right:0; bottom:0; height:53%;
+           background:linear-gradient(to bottom, rgba(20,20,20,0), rgba(20,20,20,.92)); }
+  .photo .name { position:absolute; left:20px; right:20px; bottom:18px; z-index:1; }
+  .photo h1 { text-shadow:0 1px 12px rgba(0,0,0,.25); }
+  .photo .en-name { font-style:italic; font-size:17px; opacity:.85; margin-top:2px; }
+  @keyframes pop { to { opacity:1; transform:none; } }
+
+  /* staggered reveal for the rest of the page */
+  .reveal { opacity:0; transform:translateY(12px); }
+  .play .reveal { animation:rise .8s var(--ease) forwards; animation-delay:calc(.5s + var(--d, 0) * 110ms); }
+  @keyframes rise { to { opacity:1; transform:none; } }
+
+  /* ---------- identity + tagline ---------- */
+  h1 { font-weight:900; font-size:34px; line-height:1.2; }
+  .en-name { font-size:19px; letter-spacing:.02em; margin-top:4px; }
+  .meta { color:var(--mute); line-height:1.6; margin-top:16px; }
+  .tagline { display:flex; flex-direction:column; border-bottom:1px solid rgba(237,235,230,.25); padding-bottom:20px; }
+  .tagline .jp { font-weight:700; font-size:17px; }
+  .tagline .en { font-style:italic; font-size:15px; color:var(--mute); margin-top:4px; }
+
+  /* ---------- link rows ---------- */
+  .links { display:flex; flex-direction:column; gap:10px; }
+  .row { position:relative; overflow:hidden; display:flex; justify-content:space-between; align-items:center; padding:16px 18px;
+         border:1px solid var(--line); border-radius:10px; color:var(--ink); text-decoration:none;
+         transition:background .25s, border-color .25s, transform .15s; }
+  .row .labels { display:flex; flex-direction:column; gap:2px; position:relative; z-index:1; }
+  .row .jp { font-weight:700; font-size:15px; }
+  .row .en { font-family:'EB Garamond', Georgia, serif; font-style:italic; font-size:13px; color:var(--mute); }
+  .row .arrow { font-family:'EB Garamond', Georgia, serif; font-size:18px; position:relative; z-index:1; transition:transform .3s var(--ease); }
+  .row:hover { border-color:var(--ink); }
+  .row:hover .arrow { transform:translateX(4px); }
+  .row:active { transform:scale(.985); }
+  .row.primary { background:var(--ink); color:var(--bk); border-color:var(--ink); }
+  .row.primary .en { color:#4a4843; }
+  .row.primary:hover .arrow { transform:translateY(3px); }
+  .ripple { position:absolute; border-radius:50%; background:currentColor; opacity:.18; transform:scale(0);
+            animation:ripple .6s ease-out forwards; pointer-events:none; }
+  @keyframes ripple { to { transform:scale(1); opacity:0; } }
+
+  /* English mode: swap which language leads */
+  html[lang="en"] .swap { flex-direction:column-reverse; }
+  html[lang="en"] .row .labels .en { font-family:'Noto Sans JP', sans-serif; font-style:normal; font-weight:700; font-size:15px; color:inherit; }
+  html[lang="en"] .row .labels .jp { font-weight:400; font-size:12px; color:var(--mute); }
+  html[lang="en"] .row.primary .labels .jp { color:#4a4843; }
+  html[lang="en"] .tagline .en { font-style:normal; font-family:'Noto Sans JP',sans-serif; font-weight:700; font-size:17px; color:var(--ink); margin:0 0 4px; }
+  html[lang="en"] .tagline .jp { font-weight:400; font-size:14px; color:var(--mute); }
+  .swapping { animation:flick .35s ease; }
+  @keyframes flick { 0%{opacity:1} 40%{opacity:0} 100%{opacity:1} }
+
+  /* ---------- expandable link cards ---------- */
+  .card { border:1px solid var(--line); border-radius:10px; overflow:hidden; transition:border-color .25s, background .25s; }
+  .card:hover, .card.open { border-color:var(--ink); }
+  .card .row { width:100%; border:0; border-radius:0; background:none; font:inherit; text-align:left; cursor:pointer; color:inherit; }
+  .card .row .arrow { transition:transform .4s var(--ease); }
+  .card.open .row .arrow { transform:rotate(90deg); }
+  .card.primary { background:var(--ink); color:var(--bk); border-color:var(--ink); }
+  .card.primary .row { background:none; color:var(--bk); }
+  .panel { display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s var(--ease); }
+  .card.open .panel { grid-template-rows:1fr; }
+  .panel-in { overflow:hidden; }
+  .panel-body { padding:2px 18px 18px; display:flex; flex-direction:column; gap:14px; opacity:0; transform:translateY(-6px); transition:opacity .35s, transform .45s var(--ease); }
+  .card.open .panel-body { opacity:1; transform:none; transition-delay:.12s; }
+  .panel p { font-size:13.5px; line-height:1.75; color:#cfccc5; }
+  .card.primary .panel p { color:#3a3935; }
+  .kv { display:grid; grid-template-columns:auto 1fr; gap:4px 14px; font-size:13px; }
+  .kv dt { color:var(--mute); font-family:'IBM Plex Mono', monospace; font-size:11px; padding-top:2px; }
+  .card.primary .kv dt { color:#6a6862; }
+  .kv dd { overflow-wrap:anywhere; }
+  .actions { display:flex; gap:8px; flex-wrap:wrap; }
+  .act { display:inline-flex; align-items:center; gap:6px; padding:10px 14px; border-radius:8px; border:1px solid currentColor;
+         background:none; color:inherit; font:700 13px 'Noto Sans JP', sans-serif; text-decoration:none; cursor:pointer; transition:background .2s, color .2s; }
+  .act.fill { background:var(--ink); color:var(--bk); border-color:var(--ink); }
+  .card.primary .act.fill { background:var(--bk); color:var(--ink); border-color:var(--bk); }
+  .act:active { transform:scale(.97); }
+
+  /* ---------- story (accordion) ---------- */
+  .story { border-top:1px solid rgba(237,235,230,.25); padding-top:24px; display:flex; flex-direction:column; gap:14px; }
+  .story-head .jp { font-weight:900; font-size:22px; line-height:1.35; }
+  .story-head .en { font-style:italic; font-size:15px; color:var(--mute); margin-top:4px; }
+  .story details { border-bottom:1px solid rgba(237,235,230,.2); }
+  .story summary { list-style:none; cursor:pointer; display:grid; grid-template-columns:28px 1fr 18px; align-items:baseline; gap:8px; padding:14px 0; }
+  .story summary::-webkit-details-marker { display:none; }
+  .story .num { color:var(--mute); }
+  .story .q .l-ja { word-break:keep-all; overflow-wrap:anywhere; }
+  .story .q { font-weight:700; font-size:15px; line-height:1.45; }
+  .story .plus { font-family:'EB Garamond', Georgia, serif; font-size:18px; text-align:right; transition:transform .35s var(--ease); }
+  .story details[open] .plus { transform:rotate(45deg); }
+  .story .body { padding:0 0 16px 36px; color:#cfccc5; font-size:14px; line-height:1.85; }
+  .story details[open] .body { animation:rise .45s var(--ease); }
+  html[lang="ja"] .l-en, html[lang="en"] .l-ja { display:none; }
+  html[lang="en"] .story-head .en { font-style:normal; font-family:'Noto Sans JP',sans-serif; font-weight:900; font-size:22px; color:var(--ink); margin:0 0 4px; }
+  html[lang="en"] .story-head .jp { font-weight:400; font-size:14px; color:var(--mute); }
+
+  /* keep Japanese lines from ending with a lone character */
+  p, .q, .body, .panel p { text-wrap:pretty; line-break:strict; }
+  .nb { white-space:nowrap; }
+
+  footer { display:flex; justify-content:space-between; color:var(--mute); }
+  .digits { font-size:12px; cursor:pointer; white-space:nowrap; overflow:hidden; max-width:60%; text-align:right; }
+
+  @media (prefers-reduced-motion:reduce) {
+    .photo { opacity:1; transform:none; animation:none !important; }
+    .reveal { opacity:1; transform:none; animation:none !important; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="top mono reveal" style="--d:0">
+    <span>TF — 2028</span>
+    <button class="lang mono" id="lang" aria-label="Switch language"><b>日本語</b> / EN</button>
+  </div>
+
+
+  <section class="reveal" style="--d:1">
+    <div class="photo">
+      <img src="assets/photo.webp" srcset="assets/photo-sm.webp 668w, assets/photo.webp 1002w" sizes="(max-width:480px) 92vw, 440px" alt="藤原経将 Tsunemasa Fujiwara" width="1002" height="1140" fetchpriority="high">
+      <div class="name">
+        <h1>藤原経将</h1>
+        <p class="en-name serif">Tsunemasa Fujiwara</p>
+      </div>
+    </div>
+    <p class="meta mono">PARSONS SCHOOL OF DESIGN · INDUSTRIAL DESIGN × ECONOMICS · CLASS OF 2028</p>
+  </section>
+
+  <section class="story reveal" style="--d:2" aria-label="Story">
+    <div class="story-head swap" style="display:flex;flex-direction:column">
+      <p class="jp">ビジネスのために、<br>まずはデザインから入る。</p>
+      <p class="en serif">Design first — on purpose, for business.</p>
+    </div>
+
+    <details>
+      <summary><span class="num mono">01</span><span class="q"><span class="l-ja">なぜ、<wbr>デザイン × ビジネスか</span><span class="l-en">Why design × business?</span></span><span class="plus">+</span></summary>
+      <p class="body"><span class="l-ja">これからのビジネスには、数字に加えて、人の心を動かすセンスが必要だと考えています。マーケティングやコンサルティングに活かせる感性を、最初から身につけたいと思いました。</span><span class="l-en">Business today needs more than numbers — it needs the sense to move people. I wanted that sense from the start, for work like marketing and consulting.</span></p>
+    </details>
+    <details>
+      <summary><span class="num mono">02</span><span class="q"><span class="l-ja">パーソンズでなければならなかった</span><span class="l-en">It had to be Parsons</span></span><span class="plus">+</span></summary>
+      <p class="body"><span class="l-ja">二つの大学に通う時間はありません。トップレベルのデザインと経済学の学位を同時に取れるのは、パーソンズだけでした。多くの大学を調べた結果、ここしかないと決めました。</span><span class="l-en">There was no time to attend two schools. Parsons is the only place to earn a top-level design degree and an economics degree together. I looked at many schools — this was the only one.</span></p>
+    </details>
+    <details>
+      <summary><span class="num mono">03</span><span class="q"><span class="l-ja">心が動く理由は、<wbr>数字だけではわからない。</span><span class="l-en">Numbers alone can’t explain why people are moved.</span></span><span class="plus">+</span></summary>
+      <p class="body"><span class="l-ja">デザインで学んだのは「心はなぜ動くのか」。それはビジネスの世界の行動経済学ともつながる視点です。この組み合わせは、AIが苦手とする、人ならではの強みでもあると考えています。</span><span class="l-en">Design taught me why people are moved — a view that connects to behavioral economics in business. It’s also a human strength that AI still finds hard.</span></p>
+    </details>
+    <details>
+      <summary><span class="num mono">04</span><span class="q"><span class="l-ja">学んできたことで<wbr>何ができるのだろう？</span><span class="l-en">What can I do with what I’ve learned?</span></span><span class="plus">+</span></summary>
+      <p class="body"><span class="l-ja">課題を見つけ、デザインで心を動かし、数字で考える。両方を学んだからこその視点があります。その視点を、ビジネスの現場で生かしていきたいです。</span><span class="l-en">Find the problem, move people with design, think it through with numbers. Studying both gives me that view — and I want to put it to work in business.</span></p>
+    </details>
+  </section>
+
+  <section class="tagline swap reveal" style="--d:3">
+    <p class="jp">デザインの感性を、ビジネスの力に。</p>
+    <p class="en serif">Design sense, as a business strength.</p>
+  </section>
+
+  <nav class="links">
+    <div class="card primary reveal" style="--d:4">
+      <button class="row" aria-expanded="false" aria-controls="p-save">
+        <span class="labels swap"><span class="jp">連絡先を保存</span><span class="en">Save contact</span></span><span class="arrow">→</span></button>
+      <div class="panel" id="p-save"><div class="panel-in"><div class="panel-body">
+        <dl class="kv">
+          <dt>NAME</dt><dd>藤原経将 · Tsunemasa Fujiwara</dd>
+          <dt>SCHOOL</dt><dd>Parsons School of Design · Class of 2028</dd>
+          <dt>MAIL</dt><dd>tsunemasafujiwara@gmail.com</dd>
+          <dt>TEL</dt><dd>+1 646 612 2294</dd>
+        </dl>
+        <div class="actions"><a class="act fill" id="saveBtn" href="contact.vcf" download="Tsunemasa-Fujiwara.vcf"><span class="l-ja">連絡先に追加</span><span class="l-en">Add to contacts</span> <span class="tick">↓</span></a></div>
+      </div></div></div>
+    </div>
+    <div class="card reveal" style="--d:5">
+      <button class="row" aria-expanded="false" aria-controls="p-port">
+        <span class="labels swap"><span class="jp">ポートフォリオ</span><span class="en">Portfolio</span></span><span class="arrow">→</span></button>
+      <div class="panel" id="p-port"><div class="panel-in"><div class="panel-body">
+        <p><span class="l-ja">プロダクト、リサーチ、プロセス。インダストリアルデザインの作品集です。</span><span class="l-en">Products, research and process — my industrial design work.</span></p>
+        <div class="actions"><a class="act fill" href="PORTFOLIO_URL" target="_blank" rel="noopener"><span class="l-ja">作品を見る</span><span class="l-en">View work</span> →</a></div>
+      </div></div></div>
+    </div>
+    <div class="card reveal" style="--d:6">
+      <button class="row" aria-expanded="false" aria-controls="p-res">
+        <span class="labels swap"><span class="jp">履歴書（PDF）</span><span class="en">Résumé (PDF)</span></span><span class="arrow">→</span></button>
+      <div class="panel" id="p-res"><div class="panel-in"><div class="panel-body">
+        <p><span class="l-ja">学歴・経験・スキルを1ページにまとめています。</span><span class="l-en">Education, experience and skills on one page.</span></p>
+        <div class="actions"><a class="act fill" href="resume.pdf" target="_blank" rel="noopener"><span class="l-ja">開く</span><span class="l-en">Open</span> →</a><a class="act" href="resume.pdf" download="Tsunemasa-Fujiwara-Resume.pdf"><span class="l-ja">ダウンロード</span><span class="l-en">Download</span> ↓</a></div>
+      </div></div></div>
+    </div>
+    <div class="card reveal" style="--d:7">
+      <button class="row" aria-expanded="false" aria-controls="p-li">
+        <span class="labels swap"><span class="jp">LinkedIn</span><span class="en">LinkedIn</span></span><span class="arrow">→</span></button>
+      <div class="panel" id="p-li"><div class="panel-in"><div class="panel-body">
+        <p><span class="l-ja">経歴や最近の活動をまとめています。よろしければご覧ください。</span><span class="l-en">My background and recent activities — please feel free to take a look.</span></p>
+        <div class="actions"><a class="act fill" href="LINKEDIN_URL" target="_blank" rel="noopener"><span class="l-ja">プロフィールを開く</span><span class="l-en">Open profile</span> →</a></div>
+      </div></div></div>
+    </div>
+    <div class="card reveal" style="--d:8">
+      <button class="row" aria-expanded="false" aria-controls="p-mail">
+        <span class="labels swap"><span class="jp">メール</span><span class="en">Email</span></span><span class="arrow">→</span></button>
+      <div class="panel" id="p-mail"><div class="panel-in"><div class="panel-body">
+        <dl class="kv"><dt>MAIL</dt><dd>tsunemasafujiwara@gmail.com</dd></dl>
+        <div class="actions"><button class="act fill" id="copyMail" type="button"><span class="l-ja">コピー</span><span class="l-en">Copy</span></button><a class="act" href="mailto:tsunemasafujiwara@gmail.com"><span class="l-ja">メールを書く</span><span class="l-en">Write email</span> →</a></div>
+      </div></div></div>
+    </div>
+  </nav>
+
+  <footer class="mono reveal" style="--d:9">
+    <span>YOUR_DOMAIN</span>
+    <span class="serif digits" id="digits" title="Tap">φ = 1.618…</span>
+  </footer>
+</main>
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const body = document.body;
+
+  /* ---- intro: spiral draws, sunflower blooms, page rises ---- */
+  const play = () => { body.classList.remove('play'); void body.offsetWidth; body.classList.add('play'); };
+  play();
+
+  /* ---- no lone characters on the last line (Japanese) ---- */
+  const glue = el => {
+    const t = el.textContent; if (!t || t.length < 14 || el.querySelector('.nb, br, wbr')) return;
+    const n = /[。、！？」）]$/.test(t) ? 5 : 4;   // keep the closing punctuation with its words
+    el.textContent = t.slice(0, -n);
+    const s = document.createElement('span'); s.className = 'nb'; s.textContent = t.slice(-n); el.appendChild(s);
+  };
+  document.querySelectorAll('.story .body .l-ja, .panel p .l-ja, .tagline .jp, .meta').forEach(glue);
+
+  /* ---- ripple on every link row ---- */
+  document.querySelectorAll('.row').forEach(row => row.addEventListener('pointerdown', e => {
+    const r = row.getBoundingClientRect(), s = Math.max(r.width, r.height) * 2.2;
+    const dot = document.createElement('span'); dot.className = 'ripple';
+    dot.style.cssText = `width:${s}px;height:${s}px;left:${e.clientX - r.left - s/2}px;top:${e.clientY - r.top - s/2}px`;
+    row.appendChild(dot); setTimeout(() => dot.remove(), 650);
+    if (navigator.vibrate) navigator.vibrate(8);
+  }));
+
+  /* ---- expandable cards: one open at a time ---- */
+  const cards = [...document.querySelectorAll('.card')];
+  cards.forEach(card => card.querySelector('.row').addEventListener('click', () => {
+    const open = !card.classList.contains('open');
+    cards.forEach(c => { c.classList.remove('open'); c.querySelector('.row').setAttribute('aria-expanded', 'false'); });
+    if (open) { card.classList.add('open'); card.querySelector('.row').setAttribute('aria-expanded', 'true');
+      setTimeout(() => { const r = card.getBoundingClientRect(); if (r.bottom > innerHeight) card.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' }); }, 450); }
+  }));
+
+  /* ---- save contact: confirm with a check mark ---- */
+  const tick = document.querySelector('#saveBtn .tick');
+  document.getElementById('saveBtn').addEventListener('click', () => { tick.textContent = '✓'; setTimeout(() => tick.textContent = '↓', 2400); });
+
+  /* ---- copy email ---- */
+  const copyBtn = document.getElementById('copyMail'), copyHTML = copyBtn.innerHTML;
+  copyBtn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText('tsunemasafujiwara@gmail.com');
+      copyBtn.innerHTML = '<span class="l-ja">コピーしました ✓</span><span class="l-en">Copied ✓</span>';
+    } catch (e) { location.href = 'mailto:tsunemasafujiwara@gmail.com'; }
+    setTimeout(() => copyBtn.innerHTML = copyHTML, 2000);
+  });
+
+  /* ---- language toggle ---- */
+  const btn = document.getElementById('lang');
+  const setLang = (l, anim) => {
+    if (anim) document.querySelectorAll('.swap').forEach(n => { n.classList.remove('swapping'); void n.offsetWidth; n.classList.add('swapping'); });
+    document.documentElement.lang = l;
+    btn.innerHTML = l === 'ja' ? '<b>日本語</b> / EN' : '日本語 / <b>EN</b>';
+    try { localStorage.setItem('lang', l); } catch (e) {}
+  };
+  let saved = null; try { saved = localStorage.getItem('lang'); } catch (e) {}
+  setLang(saved || ((navigator.language || 'ja').startsWith('ja') ? 'ja' : 'en'), false);
+  btn.addEventListener('click', () => setLang(document.documentElement.lang === 'ja' ? 'en' : 'ja', true));
+
+  /* ---- footer easter egg: tap φ to unroll its digits ---- */
+  const PHI = '1.6180339887498948482045868343656381177203';
+  const dg = document.getElementById('digits'); let typing = null;
+  dg.addEventListener('click', () => {
+    clearInterval(typing); let i = 5;
+    typing = setInterval(() => {
+      dg.textContent = 'φ = ' + PHI.slice(0, i) + (i < PHI.length ? '' : '…');
+      if (++i > PHI.length) { clearInterval(typing); setTimeout(() => dg.textContent = 'φ = 1.618…', 2500); }
+    }, 45);
+  });
+})();
+</script>
+</body>
+</html>
